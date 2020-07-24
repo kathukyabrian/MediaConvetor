@@ -1,6 +1,7 @@
 import os
 from config import app
-from flask import render_template, request, abort
+from flask import render_template, request, abort, flash, redirect, url_for
+import subprocess
 # from werkzeug import secure_filename
 
 @app.route('/')
@@ -14,10 +15,17 @@ def video():
         filename = f.filename
         if filename != '':
             file_ext = os.path.splitext(filename)[1]
-            if file_ext not in app.config['UPLOAD_EXTENSIONS']:
-                abort(400)
+            if file_ext not in app.config['VIDEO_EXTENSIONS']:
+                flash('File format not supported',category='danger')
+                return redirect(url_for('video'))
             else:
-                os.system('ffmpeg -i $HOME/Downloads/Video/{} $HOME/Downloads/Music/{}'.format(filename,os.path.splitext(filename)[0]+".mp3"))
+                try:
+                    cmd = 'ffmpeg -i $HOME/Downloads/Video/{} $HOME/Downloads/Music/{}'.format(filename,os.path.splitext(filename)[0]+".mp3")
+                    subprocess.call(cmd,shell=True)
+                    flash("Video conversion completed successfully",category="success")
+                except:
+                    flash('The video could not be converted, try again!')
+                    return redirect(url_for('video'))
     return render_template('video.html')
 
 @app.route('/audio')
