@@ -15,9 +15,13 @@
         <form method="POST" enctype = "multipart/form-data">
             <div class="custom-file">
                 <input type="file" class="custom-file-input" id="customFile" name="file">
-                <label class="custom-file-label" for="customFile">Choose file</label>
+                <label class="custom-file-label" for="customFile">Choose Input Video</label>
             </div><br><br>
-            <button type="submit" class="btn btn-primary"><i class="fa fa-exchange"></i> Convert to MP3</button>
+            <button type="submit" class="btn btn-primary" name="tomp3"><i class="fa fa-exchange"></i> Convert to MP3</button>
+            <button type="submit" class="btn btn-danger" name="to720"><i class="fa fa-refresh"></i> Convert to 720p</button>
+            <button type="submit" class="btn btn-danger" name="to540"><i class="fa fa-refresh"></i> Convert to 540p</button>
+            <button type="submit" class="btn btn-danger" name="to360"><i class="fa fa-refresh"></i> Convert to 360p</button>
+            <button type="submit" class="btn btn-danger" name="to144"><i class="fa fa-refresh"></i> Convert to 144p</button>
         </form>
     </div>
     <script>
